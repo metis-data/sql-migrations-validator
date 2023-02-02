@@ -1,0 +1,26 @@
+{
+  "name": "metis-sql-migrations-validator",
+  "version": "1.0.0",
+  "description": "Check for new sql migrations and analyze if exists",
+  "main": "index.js",
+  "scripts": {
+    "build": " ncc build index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/metis-data/sql-migrations-validator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/metis-data/sql-migrations-validator/issues"
+  },
+  "homepage": "https://github.com/metis-data/sql-migrations-validator#readme",
+  "dependencies": {
+    "@actions/core": "^1.10.0",
+    "@actions/github": "^5.1.1",
+    "axios": "^1.2.3",
+    "octokit": "^2.0.13"
+  }
+}
