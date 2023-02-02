@@ -1,0 +1,23 @@
+name: 'Analyze migrations'
+description: 'Check for migrations files ans sends them to analyze'
+author: 'Issackr'
+inputs:
+  from:
+    description: 'Commit SHA from'
+    required: true
+  to:
+    description: 'Commit SHA to'
+    required: true
+  metis_api_key:
+    description: 'Metis api key project identifier'
+    required: true
+  github_token:
+    description: 'Github token'
+    required: true
+  target_url:
+    description: 'Metis target url'
+    required: false
+    default: 'https://app.metisdata.io'
+runs:
+  using: node16
+  main: 'dist/index.js'
