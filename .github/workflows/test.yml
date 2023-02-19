@@ -1,0 +1,27 @@
+name: Test migrations action
+
+on:
+  pull_request:
+    types: [opened, reopened, edited, synchronize, ready_for_review]
+
+jobs:
+  migrations:
+    name: Analyze new migrations
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Npm install
+        run: npm install
+      - name: Compare migrations
+        uses: ./
+        id: diff-migrations
+        with:
+          from: ${{ github.event.pull_request.base.sha }}
+          to: ${{ github.event.pull_request.head.sha }}
+          metis_api_key: 0k6fLBcZYo5xKC9h7lgB4aBoeaVkWjCS3oReEWKA
+          github_token: ${{ github.token }}
+          migrations_dir: migrations
+          target_url: https://dev.metisdata.io

@@ -21,6 +21,11 @@
     "@actions/core": "^1.10.0",
     "@actions/github": "^5.1.1",
     "axios": "^1.2.3",
-    "octokit": "^2.0.13"
+    "octokit": "^2.0.13",
+    "pg": "^8.9.0",
+    "sequelize": "^6.28.0",
+    "sequelize-mock": "^0.10.2",
+    "sqlite3": "^5.1.4",
+    "umzug": "^3.2.1"
   }
 }
