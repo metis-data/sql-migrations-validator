@@ -17,6 +17,8 @@ async function main() {
     console.log(`sha from ${shaFrom}`);
     console.log(`sha to ${shaTo}`);
     console.log(`api key ${apiKey}`);
+    console.log(`from context sha: ${context.sha}`);
+    console.log(`from context ref: ${context.ref}`);
 
     let output = execSync(
       `git diff --diff-filter=ACM ${shaFrom} ${shaTo} --name-only | grep '.sql' | jq -Rsc '. / "\n" - [""]'`
