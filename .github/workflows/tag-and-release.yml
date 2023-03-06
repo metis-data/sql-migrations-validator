@@ -25,10 +25,8 @@ jobs:
           tag: ${{ steps.version.outputs.tag }}
       - name: Tag
         run: |
-          git tag ${{ steps.bump-version.outputs.tag }}
           git tag -f v1
           git push -f --tags
       - name: Release
         run: |
-          gh release create ${{ steps.bump-version.outputs.tag }}
-          gh release create v1
+          gh release create ${{ steps.bump-version.outputs.tag }} --verify-tag
