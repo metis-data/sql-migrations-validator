@@ -29,4 +29,4 @@ jobs:
           git push -f --tags
       - name: Release
         run: |
-          gh release create ${{ steps.bump-version.outputs.tag }} --verify-tag
+          gh release create ${{ steps.bump-version.outputs.tag }
