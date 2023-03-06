@@ -25,7 +25,7 @@ jobs:
         run: |
           git tag ${{ steps.bump-version.outputs.tag }}
           git tag -f v1
-          git push --tags
+          git push -f --tags
       - name: Release
         run: |
           gh release create ${{ steps.bump-version.outputs.tag }}
