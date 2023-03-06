@@ -16,7 +16,9 @@ async function main() {
 
     console.log(`sha from ${shaFrom}`);
     console.log(`sha to ${shaTo}`);
-    console.log(`api key ${apiKey}`);
+    if (!apiKey) {
+      console.warn('api key is not defined');
+    }
 
     let output = execSync(
       `git diff --diff-filter=ACM ${shaFrom} ${shaTo} --name-only | grep '.sql' | jq -Rsc '. / "\n" - [""]'`
@@ -43,7 +45,7 @@ async function main() {
         apiKey,
         insights
       });
-      console.log(res);
+      console.log(`Got response status: ${res.status} with text: ${res.statusText}`);
 
       await octokit.rest.issues.createComment({
         ...context.repo,
@@ -54,7 +56,7 @@ async function main() {
       });
     }
   } catch (e) {
-    core.error(e);
+    core.error(`Error: ${e.status} ${e.message}`);
     core.setFailed(e);
   }
 }
