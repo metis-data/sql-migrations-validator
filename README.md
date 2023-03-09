@@ -6,6 +6,9 @@ Github action for auto analyze sql files in PRs
 An action for auto recognize new sql files submitted in a pull request. Those files will be sent to be analyzed 
 and derive insights on Metis-data platform.
 
+> :warning: **Note:** In your SQL files make sure to separate statements with semicolon, otherwise the parsing process 
+> may parse multiple statements as one.
+
 ## Usage
 
 Add the following step to your workflow:
