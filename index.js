@@ -38,7 +38,11 @@ async function main() {
             '',
           );
           const queries = fileData.split(/;\s*\n/).filter(Boolean);
+          queries.map((q, index) => {
+            console.log(`query_${index}: ${q}`);
+          });
           migrationsData.push(...queries);
+          console.log(`migrationsData: ${migrationsData}`);
           const rawInsight = execSync(`pgsql-parser ${migration}`);
           const insight = JSON.parse(rawInsight);
           Object.assign(insights, { [index]: insight });
