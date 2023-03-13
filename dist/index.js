@@ -16313,6 +16313,7 @@ async function main() {
           migrationsData,
           prId: `${pull_request.number}`,
           prName: pull_request.title || context.sha,
+          prUrl: pull_request.html_url,
           insights,
         },
         { headers: { 'x-api-key': apiKey } },
