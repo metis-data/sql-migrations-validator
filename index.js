@@ -1,8 +1,11 @@
-const core = require('@actions/core');
 const execSync = require('child_process').execSync;
+execSync('npm install -g pgsql-parser');
+const globalPath = execSync('npm root -g');
+const parserPath = `${globalPath}`.replace('\n', '') + '/pgsql-parser/main';
+const core = require('@actions/core');
 const fs = require('fs');
 const axios = require('axios');
-const { parse } = require('pgsql-parser');
+const { parse } = require(parserPath);
 const { context, getOctokit } = require('@actions/github');
 
 const tryToSettle = (queries, target) => {
@@ -42,10 +45,10 @@ async function main() {
     );
     const newMigrationsFiles = JSON.parse(output);
     console.log(`new files paths: ${newMigrationsFiles}`);
+
     if (newMigrationsFiles.length) {
       const migrationsData = [];
       const insights = {};
-      execSync('npm install -g pgsql-parser');
       await Promise.all(
         newMigrationsFiles.map((migration, index) => {
           let fileData = fs.readFileSync(migration, { encoding: 'utf-8' });
@@ -54,8 +57,7 @@ async function main() {
             '',
           );
           const queries = fileData.split(/;\s*\n/).filter(Boolean);
-          const rawInsight = execSync(`pgsql-parser ${migration}`);
-          const insight = JSON.parse(rawInsight);
+          const insight = parse(fileData);
           const finalQueries = tryToSettle(queries, insight.length);
           migrationsData.push(...finalQueries);
           Object.assign(insights, { [index]: insight });
