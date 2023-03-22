@@ -2,7 +2,24 @@ const core = require('@actions/core');
 const execSync = require('child_process').execSync;
 const fs = require('fs');
 const axios = require('axios');
+const { parse } = require('pgsql-parser');
 const { context, getOctokit } = require('@actions/github');
+
+const tryToSettle = (queries, target) => {
+  if (queries.length === target) return queries;
+  const mergedQueries = [];
+  queries.reduce((prev, curr) => {
+    const query = prev + curr;
+    try {
+      parse(query);
+      mergedQueries.push(query);
+      return '';
+    } catch (e) {
+      return query + ';\n';
+    }
+  }, '');
+  return mergedQueries;
+}
 
 async function main() {
   try {
@@ -25,7 +42,6 @@ async function main() {
     );
     const newMigrationsFiles = JSON.parse(output);
     console.log(`new files paths: ${newMigrationsFiles}`);
-
     if (newMigrationsFiles.length) {
       const migrationsData = [];
       const insights = {};
@@ -38,9 +54,10 @@ async function main() {
             '',
           );
           const queries = fileData.split(/;\s*\n/).filter(Boolean);
-          migrationsData.push(...queries);
           const rawInsight = execSync(`pgsql-parser ${migration}`);
           const insight = JSON.parse(rawInsight);
+          const finalQueries = tryToSettle(queries, insight.length);
+          migrationsData.push(...finalQueries);
           Object.assign(insights, { [index]: insight });
         }),
       );
