@@ -22,7 +22,7 @@ const tryToSettle = (queries, target) => {
     }
   }, '');
   return mergedQueries;
-}
+};
 
 async function main() {
   try {
@@ -41,7 +41,7 @@ async function main() {
     }
 
     let output = execSync(
-      `git diff --diff-filter=ACM ${shaFrom} ${shaTo} --name-only | grep '.sql' | jq -Rsc '. / "\n" - [""]'`,
+      `git diff --diff-filter=ACM ${shaFrom} ${shaTo} --name-only | grep '.sql$' | jq -Rsc '. / "\n" - [""]'`,
     );
     const newMigrationsFiles = JSON.parse(output);
     console.log(`new files paths: ${newMigrationsFiles}`);
