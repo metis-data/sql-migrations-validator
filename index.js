@@ -68,9 +68,11 @@ async function main() {
         `${url}/api/migrations/create`,
         {
           migrationsData,
-          prId: `${pull_request.number}`,
-          prName: pull_request.title || context.sha,
-          prUrl: pull_request.html_url,
+          prId:
+            `${pull_request?.number}` ||
+            `${Math.floor(10000 + Math.random() * 90000)}`,
+          prName: pull_request?.title || context.sha,
+          prUrl: pull_request?.html_url,
           insights,
         },
         { headers: { 'x-api-key': apiKey } },
@@ -81,7 +83,7 @@ async function main() {
 
       await octokit.rest.issues.createComment({
         ...context.repo,
-        issue_number: pull_request.number,
+        issue_number: pull_request?.number,
         body: `Metis analyzed your new migrations files. View the results under Pull Requests in the link: 
           ${encodeURI(`${url}/projects/${apiKey}`)}`,
       });
