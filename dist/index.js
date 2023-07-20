@@ -16371,12 +16371,16 @@ async function main() {
         `Got response status: ${res.status} with text: ${res.statusText}`,
       );
 
-      await octokit.rest.issues.createComment({
-        ...context.repo,
-        issue_number: prId,
-        body: `Metis analyzed your new migrations files. View the results under Pull Requests in the link: 
+      try {
+        await octokit.rest.issues.createComment({
+          ...context.repo,
+          issue_number: prId,
+          body: `Metis analyzed your new migrations files. View the results under Pull Requests in the link: 
           ${encodeURI(`${url}/projects/${apiKey}`)}`,
-      });
+        });
+      } catch (e) {
+        console.log(`Failed to comment on PR: ${e.status} ${e.message}`);
+      }
     }
   } catch (e) {
     core.error(`Error: ${e.status} ${e.message}`);
