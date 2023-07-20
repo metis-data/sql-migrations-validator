@@ -63,14 +63,15 @@ async function main() {
           Object.assign(insights, { [index]: insight });
         }),
       );
+      const prId =
+        `${pull_request?.number}` ||
+        `${Math.floor(10000 + Math.random() * 90000)}`;
 
       const res = await axios.post(
         `${url}/api/migrations/create`,
         {
           migrationsData,
-          prId:
-            `${pull_request?.number}` ||
-            `${Math.floor(10000 + Math.random() * 90000)}`,
+          prId,
           prName: pull_request?.title || context.sha,
           prUrl: pull_request?.html_url,
           insights,
@@ -83,7 +84,7 @@ async function main() {
 
       await octokit.rest.issues.createComment({
         ...context.repo,
-        issue_number: pull_request?.number,
+        issue_number: prId,
         body: `Metis analyzed your new migrations files. View the results under Pull Requests in the link: 
           ${encodeURI(`${url}/projects/${apiKey}`)}`,
       });
