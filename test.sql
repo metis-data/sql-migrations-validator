@@ -6,7 +6,7 @@ ALTER TABLE "test_workflow"
 DROP COLUMN "test_name",
 ADD COLUMN "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 ADD COLUMN "pr_id" TEXT NOT NULL,
-ADD COLUMN "pr_name" TEXT NOT NULL
+ADD COLUMN "pr_name" TEXT NOT NULL;
 
 CREATE INDEX index_name ON test_table (column1, column2);
 DROP TABLE test_table;
