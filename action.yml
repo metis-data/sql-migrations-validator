@@ -21,6 +21,7 @@ inputs:
   custom_name:
     description: 'Custom name for migration check'
     required: false
+    default: 'migration test'
 runs:
   using: node16
   main: 'dist/index.js'
