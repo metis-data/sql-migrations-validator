@@ -67,7 +67,7 @@ async function main() {
       const prId =
         `${pull_request?.number}` ||
         `${Math.floor(10000 + Math.random() * 90000)}`;
-
+      console.log(`Check customName: ${customName}`)
       const res = await axios.post(
         `${url}/api/migrations/create`,
         {
