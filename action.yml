@@ -18,6 +18,9 @@ inputs:
     description: 'Metis target url'
     required: false
     default: 'https://app.metisdata.io'
+  custom_name:
+    description: 'Custom name for migration check'
+    required: false
 runs:
   using: node16
   main: 'dist/index.js'
