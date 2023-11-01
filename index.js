@@ -67,7 +67,7 @@ async function main() {
       const prId =
         `${pull_request?.number}` ||
         `${Math.floor(10000 + Math.random() * 90000)}`;
-      console.log(`Check customName: ${customName}`)
+     
       const res = await axios.post(
         `${url}/api/migrations/create`,
         {
@@ -80,7 +80,7 @@ async function main() {
         { headers: { 'x-api-key': apiKey } },
       );
       console.log(
-        `Got response status: ${res.status} with text: ${res.statusText}`,
+        `Got response status: ${res.status} with text: ${res.statusText}. Check customName: ${customName} `,
       );
 
       try {
