@@ -73,7 +73,8 @@ async function main() {
         {
           migrationsData,
           prId,
-          prName: customName || pull_request?.title || context.sha,
+        //  prName: customName || pull_request?.title || context.sha,
+          prName: customName,
           prUrl: pull_request?.html_url,
           insights,
         },
