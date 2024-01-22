@@ -1,0 +1,40 @@
+name: Test migrations action
+
+on:
+  pull_request:
+    types: [opened, reopened, edited, synchronize, ready_for_review]
+
+jobs:
+  migrations:
+    name: Analyze new migrations
+    runs-on: ubuntu-latest
+#    services:
+#      postgres:
+#        image: postgres
+#        env:
+#          POSTGRES_PASSWORD: postgres
+#        ports:
+#          - 5432:5432
+#        options: >-
+#          --health-cmd pg_isready
+#          --health-interval 10s
+#          --health-timeout 5s
+#          --health-retries 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Npm install
+        run: npm install
+      - name: Compare migrations
+        uses: ./
+        id: diff-migrations
+        env:
+          ACTIONS_STEP_DEBUG: true
+        with:
+          from: ${{ github.event.pull_request.base.sha }}
+          to: ${{ github.event.pull_request.head.sha }}
+          metis_api_key: ${{ secrets.METIS_API_KEY }}
+          github_token: ${{ github.token }}
+          target_url: https://dev.metisdata.io
