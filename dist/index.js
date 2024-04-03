@@ -20570,12 +20570,12 @@ async function main() {
       );
 
       try {
+        const { id: migrationWorkFlowId } = res.data;
         await octokit.rest.issues.createComment({
           ...context.repo,
           issue_number: prId,
           body: `Metis analyzed your new migrations files. View the results under Pull Requests in the link: 
-          ${encodeURI(`${url}/projects/${apiKey}/test/${context.sha}/migration/${prId}`)}`,
-        //https://url/projects/apiKey/test/869dd9cd09f46cd299d49dbb888f097682e266b9/migration/59db2695-1b4c-4fb8-9818-cb1959a8b532/analysis
+          ${encodeURI(`${url}/projects/${apiKey}/test/${context.sha}/migration/${migrationWorkFlowId}`)}`,
 
         });
       } catch (e) {
