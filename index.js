@@ -84,11 +84,13 @@ async function main() {
       );
 
       try {
+        const { id: migrationWorkFlowId } = res.data;
         await octokit.rest.issues.createComment({
           ...context.repo,
           issue_number: prId,
           body: `Metis analyzed your new migrations files. View the results under Pull Requests in the link: 
-          ${encodeURI(`${url}/projects/${apiKey}`)}`,
+          ${encodeURI(`${url}/projects/${apiKey}/test/${context.sha}/migration/${migrationWorkFlowId}`)}`,
+
         });
       } catch (e) {
         console.log(`Failed to comment on PR: ${e.status} ${e.message}`);
