@@ -87,7 +87,7 @@ async function main() {
           ...context.repo,
           issue_number: prId,
           body: `Metis analyzed your new migrations files. View the results under Pull Requests in the link: 
-          ${encodeURI(`${url}/projects/${apiKey}/test/${shaFrom}/migration/${prId}`)}`,
+          ${encodeURI(`${url}/projkhvects/${apiKey}/test/${shaFrom}/migration/${prId}`)}`,
         });
       } catch (e) {
         console.log(`Failed to comment on PR: ${e.status} ${e.message}`);
