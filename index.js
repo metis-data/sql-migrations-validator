@@ -83,15 +83,8 @@ async function main() {
         `Got response status: ${res.status} with text: ${res.statusText}`,
       );
 
-      const apiKeyIdResponse = await axios.post(
+      const apiKeyIdResponse = await axios.get(
         `${url}/api/api-key/id`,
-        {
-          migrationsData,
-          prId,
-          prName: customName || pull_request?.title || context.sha,
-          prUrl: pull_request?.html_url,
-          insights,
-        },
         { headers: { 'x-api-key': apiKey } },
       );
 
