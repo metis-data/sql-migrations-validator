@@ -35,6 +35,6 @@ jobs:
         with:
           from: ${{ github.event.pull_request.base.sha }}
           to: ${{ github.event.pull_request.head.sha }}
-          metis_api_key: 5KauFohR2zaOxXLN2EimDmZEHRBTwKX4DG8E1wR5
+          metis_api_key: aUxcV3VOJ590x6q6mkQqY9n8UOsF3J2u4edbF5Jv
           github_token: ${{ github.token }}
           target_url: https://app.metisdata.io
