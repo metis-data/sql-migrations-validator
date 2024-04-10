@@ -93,7 +93,7 @@ async function main() {
         await octokit.rest.issues.createComment({
           ...context.repo,
           issue_number: prId,
-          body: `[Metis test results are available here]( 
+          body: `[Metis sql analyze results are available here]( 
           ${encodeURI(
             `${url}/projects/${apiKeyId}/test/${context.sha}/migration/${migrationWorkFlowId}`,
           )})`,
