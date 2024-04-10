@@ -28,7 +28,7 @@ async function main() {
   try {
     const shaFrom = core.getInput('from');
     const shaTo = core.getInput('to');
-    const customName = core.getInput('custom_name')
+    const customName = core.getInput('custom_name');
     const apiKey = core.getInput('metis_api_key');
     const githubToken = core.getInput('github_token');
     const url = core.getInput('target_url');
@@ -83,10 +83,9 @@ async function main() {
         `Got response status: ${res.status} with text: ${res.statusText}`,
       );
 
-      const apiKeyIdResponse = await axios.get(
-        `${url}/api/api-key/id`,
-        { headers: { 'x-api-key': apiKey } },
-      );
+      const apiKeyIdResponse = await axios.get(`${url}/api/api-key/id`, {
+        headers: { 'x-api-key': apiKey },
+      });
 
       try {
         const { id: migrationWorkFlowId } = res.data;
@@ -94,9 +93,10 @@ async function main() {
         await octokit.rest.issues.createComment({
           ...context.repo,
           issue_number: prId,
-          body: `Metis analyzed your new migrations files. View the results under Pull Requests in the link: 
-          ${encodeURI(`${url}/projects/${apiKeyId}/test/${context.sha}/migration/${migrationWorkFlowId}`)}`,
-
+          body: `[Metis test results are available here]( 
+          ${encodeURI(
+            `${url}/projects/${apiKeyId}/test/${context.sha}/migration/${migrationWorkFlowId}`,
+          )})`,
         });
       } catch (e) {
         console.log(`Failed to comment on PR: ${e.status} ${e.message}`);
